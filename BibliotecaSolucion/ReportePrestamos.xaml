@@ -1,0 +1,52 @@
+﻿<Window x:Class="BibliotecaSolucion.ReportePrestamos"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Reporte de Préstamos" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Filtros de Fecha -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
+            <TextBlock Text="Fecha Inicio:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <DatePicker x:Name="DpFechaInicio" Width="120" Margin="0,0,15,0"/>
+
+            <TextBlock Text="Fecha Fin:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <DatePicker x:Name="DpFechaFin" Width="120" Margin="0,0,15,0"/>
+
+            <Button Content="Generar Reporte" Width="120" Height="25" 
+                    Background="#4CAF50" Foreground="White" FontWeight="Bold"
+                    Click="BtnGenerar_Click"/>
+        </StackPanel>
+
+        <!-- DataGrid del Reporte -->
+        <DataGrid Grid.Row="1" x:Name="DgReporte" AutoGenerateColumns="False" 
+                  IsReadOnly="True" AlternatingRowBackground="#F5F5F5">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Socio" Binding="{Binding NombreSocio}" Width="*"/>
+                <DataGridTextColumn Header="Libro" Binding="{Binding TituloLibro}" Width="*"/>
+                <DataGridTextColumn Header="Fecha Préstamo" Binding="{Binding FechaPrestamo, StringFormat=dd/MM/yyyy}" Width="120"/>
+                <DataGridTextColumn Header="Fecha Límite" Binding="{Binding FechaLimite, StringFormat=dd/MM/yyyy}" Width="120"/>
+                <DataGridTextColumn Header="Estado" Binding="{Binding Estado}" Width="100">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Estado}" Value="Pendiente">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Estado}" Value="Devuelto">
+                                    <Setter Property="Foreground" Value="Green"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

@@ -1,0 +1,27 @@
+﻿<Window x:Class="BibliotecaSolucion.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Sistema de Biblioteca" Height="400" Width="500"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+            <TextBlock Text="SISTEMA DE BIBLIOTECA" FontSize="24" FontWeight="Bold" 
+                       HorizontalAlignment="Center" Margin="0,0,0,30"/>
+
+            <Button Content="Mantenimiento de Libros" Width="250" Height="40" 
+                    Margin="0,10" Click="BtnLibros_Click"/>
+
+            <Button Content="Mantenimiento de Socios" Width="250" Height="40" 
+                    Margin="0,10" Click="BtnSocios_Click"/>
+
+            <Button Content="Registrar Préstamo" Width="250" Height="40" 
+                    Margin="0,10" Click="BtnPrestamo_Click"/>
+
+            <Button Content="Registrar Devolución" Width="250" Height="40" 
+                    Margin="0,10" Click="BtnDevolucion_Click"/>
+
+            <Button Content="Reporte de Préstamos" Width="250" Height="40" 
+                    Margin="0,10" Click="BtnReporte_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
