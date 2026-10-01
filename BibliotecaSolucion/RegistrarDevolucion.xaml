@@ -1,12 +1,38 @@
-﻿<Window x:Class="BibliotecaSolucion.RegistrarDevolucion"
+<Window x:Class="BibliotecaSolucion.RegistrarDevolucion"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BibliotecaSolucion"
-        mc:Ignorable="d"
-        Title="RegistrarDevolucion" Height="450" Width="800">
-    <Grid>
-        
+        Title="Registrar Devolución" Height="450" Width="600"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="ID del Préstamo:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBox x:Name="TxtPrestamoId" Width="100" Margin="0,0,10,0"/>
+            <Button Content="Buscar" Width="80" Click="BtnBuscar_Click"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" x:Name="DgLibros" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,0,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Libro ID" Binding="{Binding LibroId}" Width="80"/>
+                <DataGridTextColumn Header="Título" Binding="{Binding TituloLibro}" Width="*"/>
+                <DataGridTextColumn Header="Devolución" Binding="{Binding FechaDevolucion, StringFormat=d}" Width="100"/>
+                <DataGridTemplateColumn Header="Acción" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Devolver" Click="BtnDevolver_Click" Tag="{Binding LibroId}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Label x:Name="LblMulta" Content="Multa: S/ 0.00" FontSize="16" FontWeight="Bold" Foreground="Red" Margin="0,0,10,0"/>
+        </StackPanel>
     </Grid>
 </Window>

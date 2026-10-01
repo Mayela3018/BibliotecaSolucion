@@ -43,6 +43,35 @@ namespace Biblioteca.Datos
             return null;
         }
 
+        public async Task<List<DetallePrestamo>> ListarPorPrestamo(int prestamoId)
+        {
+            List<DetallePrestamo> lista = new List<DetallePrestamo>();
+            using (SqlConnection conn = conexion.ObtenerConexion())
+            {
+                await conn.OpenAsync();
+                string query = @"SELECT dp.PrestamoId, dp.LibroId, dp.FechaDevolucion, l.Titulo AS TituloLibro
+                                 FROM DetallePrestamo dp LEFT JOIN Libros l ON dp.LibroId = l.LibroId
+                                 WHERE dp.PrestamoId = @PrestamoId";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@PrestamoId", prestamoId);
+
+                using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        lista.Add(new DetallePrestamo
+                        {
+                            PrestamoId = (int)reader["PrestamoId"],
+                            LibroId = (int)reader["LibroId"],
+                            FechaDevolucion = reader["FechaDevolucion"] == DBNull.Value ? (DateTime?)null : (DateTime)reader["FechaDevolucion"],
+                            TituloLibro = reader["TituloLibro"].ToString()
+                        });
+                    }
+                }
+            }
+            return lista;
+        }
+
         public async Task Insertar(int prestamoId, int libroId, SqlConnection conn, SqlTransaction transaction)
         {
             string query = "INSERT INTO DetallePrestamo (PrestamoId, LibroId, FechaDevolucion) VALUES (@PrestamoId, @LibroId, NULL)";

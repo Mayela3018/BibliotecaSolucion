@@ -1,4 +1,4 @@
-﻿using Biblioteca.Entidades;
+using Biblioteca.Entidades;
 using Biblioteca.Negocio;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -22,9 +22,16 @@ namespace BibliotecaSolucion
 
         private async Task CargarDatos()
         {
-            listaLibros = await libroNegocio.ListarActivos();
-            DgLibros.ItemsSource = listaLibros;
-            await CargarAutores();
+            try
+            {
+                listaLibros = await libroNegocio.ListarActivos();
+                DgLibros.ItemsSource = listaLibros;
+                await CargarAutores();
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("Error al conectar con la Base de Datos: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private async Task CargarAutores()

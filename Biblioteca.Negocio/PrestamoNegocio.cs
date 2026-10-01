@@ -1,4 +1,4 @@
-﻿using Biblioteca.Datos;
+using Biblioteca.Datos;
 using Biblioteca.Entidades;
 using Microsoft.Data.SqlClient;
 using System;
@@ -34,6 +34,11 @@ namespace Biblioteca.Negocio
         public async Task<List<ReportePrestamo>> ListarReportePorFechas(DateTime fechaInicio, DateTime fechaFin)
         {
             return await prestamoDatos.ListarReportePorFechas(fechaInicio, fechaFin);
+        }
+
+        public async Task<List<DetallePrestamo>> ListarDetallesPorPrestamo(int prestamoId)
+        {
+            return await detalleDatos.ListarPorPrestamo(prestamoId);
         }
 
         // Regla: Un socio no puede tener más de 3 libros pendientes

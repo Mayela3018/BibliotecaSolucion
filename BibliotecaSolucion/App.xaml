@@ -1,9 +1,166 @@
-﻿<Application x:Class="BibliotecaSolucion.App"
+<Application x:Class="BibliotecaSolucion.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:BibliotecaSolucion"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <!-- Paleta de Colores Nueva -->
+        <SolidColorBrush x:Key="ColorPrimary" Color="#f74780" /> <!-- Rosa vibrante -->
+        <SolidColorBrush x:Key="ColorSecondary" Color="#fc6998" /> 
+        <SolidColorBrush x:Key="ColorTertiary" Color="#fa8fb1" /> 
+        <SolidColorBrush x:Key="ColorAccent" Color="#ffc1d5" /> 
+        <SolidColorBrush x:Key="ColorHighlight" Color="#fc6998" /> 
+        
+        <SolidColorBrush x:Key="ColorBackground" Color="#ffe4ec" /> <!-- Fondo súper suave -->
+        <SolidColorBrush x:Key="ColorSurface" Color="White" />
+        <SolidColorBrush x:Key="ColorText" Color="#6a0c3d" /> <!-- Texto oscuro para contraste -->
+        <SolidColorBrush x:Key="ColorTextLight" Color="White" />
+
+        <!-- Estilo Global de la Ventana -->
+        <Style TargetType="Window">
+            <Setter Property="Background" Value="{StaticResource ColorBackground}"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="{StaticResource ColorText}"/>
+        </Style>
+
+        <!-- Estilo TextBlock (Más gordito/legible) -->
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource ColorText}"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Plantilla Redondeada para Cajas de Texto -->
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="Foreground" Value="#500025"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="{StaticResource ColorSurface}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ColorTertiary}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="12">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="0"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Estilo Botón (Súper Redondeado) -->
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource ColorPrimary}"/>
+            <Setter Property="Foreground" Value="{StaticResource ColorTextLight}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="20" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource ColorSecondary}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{StaticResource ColorTertiary}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#ffd1e0"/>
+                                <Setter Property="Foreground" Value="#ffffff"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Estilo GroupBox Redondeado -->
+        <Style TargetType="GroupBox">
+            <Setter Property="BorderBrush" Value="{StaticResource ColorPrimary}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Foreground" Value="{StaticResource ColorPrimary}"/>
+            <Setter Property="FontWeight" Value="Heavy"/>
+            <Setter Property="Margin" Value="0,10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GroupBox">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" 
+                                    BorderThickness="{TemplateBinding BorderThickness}" 
+                                    CornerRadius="15" Background="{StaticResource ColorSurface}" Margin="0,10,0,0">
+                                <ContentPresenter Margin="10"/>
+                            </Border>
+                            <Border Grid.Row="0" Background="{StaticResource ColorPrimary}" 
+                                    CornerRadius="10" HorizontalAlignment="Left" Margin="15,0,0,0" Padding="15,5">
+                                <ContentPresenter ContentSource="Header" RecognizesAccessKey="True" TextBlock.Foreground="White"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Estilo DataGrid -->
+        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="{StaticResource ColorSurface}"/>
+            <Setter Property="RowBackground" Value="White"/>
+            <Setter Property="AlternatingRowBackground" Value="#fff2f6"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ColorAccent}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource ColorAccent}"/>
+            <Setter Property="VerticalGridLinesBrush" Value="Transparent"/>
+            <Setter Property="RowHeight" Value="35"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="SelectionUnit" Value="FullRow"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+        </Style>
+        
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="{StaticResource ColorSecondary}"/>
+            <Setter Property="Foreground" Value="{StaticResource ColorTextLight}"/>
+            <Setter Property="FontWeight" Value="ExtraBold"/>
+            <Setter Property="Padding" Value="10,12"/>
+            <Setter Property="BorderThickness" Value="0,0,1,0"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ColorTertiary}"/>
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="Padding" Value="10,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridCell">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0" Padding="5,0">
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{StaticResource ColorPrimary}"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
 </Application>
